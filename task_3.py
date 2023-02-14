@@ -5,13 +5,13 @@
 
 
 def check_number(n):
-    return False if 1 > n or n > 100_000 else True
+    return True if 1 <= n <= 100_000 else False
 
 
 def check_simple(n):
     if n <= 3:
         return True
-    for i in range(1, int(n ** 0.5)):
+    for i in range(2, int(n)):
         if n % i == 0:
             return False
         else:
