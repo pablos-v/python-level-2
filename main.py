@@ -1,16 +1,29 @@
-# This is a sample Python script.
+# 2.Треугольник существует только тогда, когда сумма любых двух его сторон больше третьей.
+# Дано a, b, c - стороны предполагаемого треугольника. Требуется сравнить длину каждого
+# отрезка-стороны с суммой двух других. Если хотя бы в одном случае отрезок окажется больше
+# суммы двух других, то треугольника с такими сторонами не существует. Отдельно сообщить
+# является ли треугольник разносторонним, равнобедренным или равносторонним.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def check(a, b, c):
+    return False if a > b + c or b > a + c or c > a + b else True
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def solve(a, b, c):
+    if a == b == c:
+        res = 'Equilateral triangle'
+    elif a == b or b == c or a == c:
+        res = 'Equal triangle'
+    else:
+        res = 'Irregular triangle'
+    print(res)
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCarm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    while True:
+        a = input('Enter side A: ')
+        b = input('Enter side B: ')
+        c = input('Enter side C: ')
+        if check(a, b, c):
+            solve(a, b, c)
+            break
+        print('Unavailable triangle, try again!')
