@@ -4,6 +4,7 @@
 
 import fractions
 
+
 def counter(a, b):
     first = a.split('/')
     second = b.split('/')
@@ -22,30 +23,23 @@ def counter(a, b):
 
 
 def reducer(a, b):
-    if b // a:
-        a = 1
-        b = b // a
-    else:
-        list_of_dividers = list(range(10, 1, -1))
-        for divider in list_of_dividers:
-            if a // divider and b // divider:
-                a = a // divider
-                b = b // divider
+    list_of_dividers = list(range(10, 1, -1))
+    for divider in list_of_dividers:
+        if a % divider == 0 and b % divider == 0:
+            a = a // divider
+            b = b // divider
 
-    # return f'{c} целых и {a} / {b}' if c else f'{a}/{b}'
     return f'{a}/{b}'
 
 
-# a = input(f'Enter 1 fraction like 5/8: ')
-# b = input(f'Enter 2 fraction like 5/8: ')
-a = '7/2'
-b = '1/3'
+a = input(f'Enter 1 fraction like 5/8: ')
+b = input(f'Enter 2 fraction like 5/8: ')
 
 control_sum = fractions.Fraction(fractions.Fraction(a) + fractions.Fraction(b))
 control_prod = fractions.Fraction(fractions.Fraction(a) * fractions.Fraction(b))
 
-res = counter(a,b)
+res = counter(a, b)
 res_sum = reducer(res[0][0], res[0][1])
 res_prod = reducer(res[1][0], res[1][1])
 
-print(res_sum, res_prod, control_sum, control_prod)
+print(f'Results: {res_sum}, {res_prod}\n  Check: {control_sum}, {control_prod}')
