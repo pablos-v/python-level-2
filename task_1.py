@@ -15,14 +15,13 @@ ls = [friend_1, friend_2, friend_3]
 
 they_all_have = set()
 only_one_have = set()
-only_one_dont_have = set()
 
 for s in ls:
     current_set = set(list(s.values())[0])
     they_all_have = they_all_have | current_set
     only_one_have = they_all_have - current_set
-    only_one_dont_have =
+    not_unic = they_all_have - only_one_have
 
-print(they_all_have)
-print(only_one_have)
-print(only_one_dont_have)
+print(f'{they_all_have = }')
+print(f'{only_one_have = }')
+print(f'{not_unic = }')

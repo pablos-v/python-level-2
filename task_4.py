@@ -4,3 +4,14 @@
 # *Верните все возможные варианты комплектации рюкзака.
 
 
+dd = {'гитара': 10, 'стол': 20, 'вилка': 1, 'верёвка': 5}
+
+capacity = 30
+case = []
+
+for k, v in dd.items():
+    if v < capacity:
+        case.append(k)
+        capacity -= v
+
+print(case)
