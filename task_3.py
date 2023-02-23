@@ -1,45 +1,5 @@
-# Напишите программу, которая принимает две строки вида “a/b” - дробь с числителем
-# и знаменателем. Программа должна возвращать сумму и произведение* дробей.
-# Для проверки своего кода используйте модуль fractions.
-
-import fractions
+# В большой текстовой строке подсчитать количество встречаемых слов и вернуть 10 самых частых.
+# Не учитывать знаки препинания и регистр символов.
+# За основу возьмите любую статью из википедии или из документации к языку.
 
 
-def counter(a, b):
-    first = a.split('/')
-    second = b.split('/')
-    a_numerator = int(first[0])
-    a_denominator = int(first[1])
-    b_numerator = int(second[0])
-    b_denominator = int(second[1])
-
-    summ_numerator = a_numerator * b_denominator + b_numerator * a_denominator
-    summ_denominator = a_denominator * b_denominator
-
-    prod_numerator = a_numerator * b_numerator
-    prod_denominator = a_denominator * b_denominator
-
-    return (summ_numerator, summ_denominator), (prod_numerator, prod_denominator)
-
-
-def reducer(a, b):
-    list_of_dividers = list(range(10, 1, -1))
-    for divider in list_of_dividers:
-        if a % divider == 0 and b % divider == 0:
-            a = a // divider
-            b = b // divider
-
-    return f'{a}/{b}'
-
-
-a = input(f'Enter 1 fraction like 5/8: ')
-b = input(f'Enter 2 fraction like 5/8: ')
-
-control_sum = fractions.Fraction(fractions.Fraction(a) + fractions.Fraction(b))
-control_prod = fractions.Fraction(fractions.Fraction(a) * fractions.Fraction(b))
-
-res = counter(a, b)
-res_sum = reducer(res[0][0], res[0][1])
-res_prod = reducer(res[1][0], res[1][1])
-
-print(f'Results: {res_sum}, {res_prod}\n  Check: {control_sum}, {control_prod}')
