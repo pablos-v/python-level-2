@@ -5,3 +5,12 @@
 """
 
 
+def is_profitable(data: dict[str:list[int]]) -> bool:
+    for value in data.values():
+        if sum(value) < 0:
+            return False
+    return True
+
+
+compain_results = {'comp_1': [200, 300, -800, 150], 'comp_2': [153, -500, 800, 1050], 'comp_3': [-2, 0, -78, 150]}
+print(is_profitable(compain_results))
