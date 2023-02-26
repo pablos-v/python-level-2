@@ -5,3 +5,11 @@
 """
 
 
+def strange_task(**kwargs) -> dict:
+    res = {}
+    for v, k in kwargs.items():
+        res[k] = v
+    return res
+
+
+print(strange_task(a=23, b='qwerty', c=14.2, d=None, www=True))
