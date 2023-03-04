@@ -1,16 +1,24 @@
-"""✔ Функция получает на вход словарь с названием компании в качестве ключа
-и списком с доходами и расходами (3-10 чисел) в качестве значения.
-✔ Вычислите итоговую прибыль или убыток каждой компании. Если все компании
-прибыльные, верните истину, а если хотя бы одна убыточная — ложь.
+"""
+✔ Создайте функцию-генератор.
+✔ Функция генерирует N простых чисел, начиная с числа 2.
+✔ Для проверки числа на простоту используйте правило: «число является простым, если делится
+нацело только на единицу и на себя».
+
 """
 
 
-def is_profitable(data: dict[str:list[int]]) -> bool:
-    for value in data.values():
-        if sum(value) < 0:
-            return False
-    return True
+def prime_nums_gen(a: int):
+    for i in range(2, a):
+        d = 2
+        while i % d != 0:
+            d += 1
+        if d == i:
+            yield i
 
 
-compain_results = {'comp_1': [200, 300, -800, 150], 'comp_2': [153, -500, 800, 1050], 'comp_3': [-2, 0, -78, 150]}
-print(is_profitable(compain_results))
+me = iter(prime_nums_gen(9))
+print(next(me))
+print(next(me))
+print(next(me))
+print(next(me))
+print(next(me))
