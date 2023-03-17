@@ -1,24 +1,15 @@
-"""
-✔ Создайте функцию-генератор.
-✔ Функция генерирует N простых чисел, начиная с числа 2.
-✔ Для проверки числа на простоту используйте правило: «число является простым, если делится
-нацело только на единицу и на себя».
+import random
+from pathlib import Path
 
-"""
+MIN_NUM = -1000
+MAX_NUM = 1000
 
 
-def prime_nums_gen(a: int):
-    for i in range(2, a):
-        d = 2
-        while i % d != 0:
-            d += 1
-        if d == i:
-            yield i
+def fill_the_file(count, path: str | Path):
+    with open(path, 'a', encoding='utf8') as file:
+        for _ in range(count):
+            file.write(f'{random.randint(MIN_NUM, MAX_NUM)}|{random.uniform(MIN_NUM, MAX_NUM)}\n')
 
 
-me = iter(prime_nums_gen(9))
-print(next(me))
-print(next(me))
-print(next(me))
-print(next(me))
-print(next(me))
+if __name__ == '__main__':
+    fill_the_file(5, 'tfile.txt')
