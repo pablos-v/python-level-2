@@ -1,30 +1,15 @@
-from random import randint
-from typing import Callable
+class Rectangle:
+    def __init__(self, length, width=None):
+        self.length = length
+        self.width = width
 
+    def square(self):
+        return self.length ** 2 if self.width is None else self.length * self.width
 
-def deco(func: Callable):
-    def wrapper(a, b):
-        if a not in range(1, 10):
-            a = randint(1, 10)
-        if b not in range(1, 100):
-            b = randint(1, 100)
-        func(a, b)
-
-    return wrapper
-
-
-@deco
-def game(a: int, b: int):
-    for _ in range(a):
-        n = int(input('try to guess:'))
-        if n == b:
-            print('Wow!')
-            return
-        print('nope...')
-    return
+    def perimeter(self):
+        return self.length * 4 if self.width is None else (self.length + self.width) * 2
 
 
 if __name__ == '__main__':
-    a = int(input("tries"))
-    b = int(input("number"))
-    game(a, b)
+    rect = Rectangle(4, 2)
+    print(f'{rect.square() = }, {rect.perimeter() = }')

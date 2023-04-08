@@ -1,19 +1,17 @@
-def asker():
-    a = int(input('num of tries'))
-    b = int(input('num to guess'))
+import math
 
-    def game():
-        for _ in range(a):
-            n = int(input('try to guess:'))
-            if n == b:
-                print('Wow!')
-                return
-            print('nope...')
-        return
 
-    return game
+class Circle:
+    def __init__(self, rad):
+        self.radius = rad
+
+    def length(self):
+        return math.pi * self.radius * 2
+
+    def square(self):
+        return math.pi * self.radius ** 2
 
 
 if __name__ == '__main__':
-    play = asker()
-    play()
+    circle = Circle(10)
+    print(f'{circle.length() = }, {circle.square() = }')
