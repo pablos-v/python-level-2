@@ -1,17 +1,18 @@
-import math
+import time
 
 
-class Circle:
-    def __init__(self, rad):
-        self.radius = rad
-
-    def length(self):
-        return math.pi * self.radius * 2
-
-    def square(self):
-        return math.pi * self.radius ** 2
+class MyStr(str):
+    """Создайте класс Моя Строка, где:
+    будут доступны все возможности str
+    дополнительно хранятся имя автора строки и время создания
+    (time.time)"""
+    def __new__(cls, value: str, name: str):
+        inst = super().__new__(cls, value)
+        inst.name = name
+        inst.time = time.time()
+        return inst
 
 
 if __name__ == '__main__':
-    circle = Circle(10)
-    print(f'{circle.length() = }, {circle.square() = }')
+    mm = MyStr('qweerty', 'Venya')
+    print(mm, mm.name, mm.time)

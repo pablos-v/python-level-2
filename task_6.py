@@ -1,41 +1,52 @@
-class Animal:
-    def __init__(self, name, idx):
-        self.name = name
-        self.idx = idx
+"""Доработайте прошлую задачу.
+Добавьте сравнение прямоугольников по площади
+Должны работать все шесть операций сравнения
+"""
 
 
-class Fish(Animal):
-    def __init__(self, name, idx):
-        super().__init__(name, idx)
-        self.fins = 'many'
+class Rectangle:
+    def __init__(self, length, width=None):
+        self.length = length
+        self.width = width
 
-    def specific(self):
-        print(f'{self.fins = }')
+    def square(self):
+        return self.length ** 2 if self.width is None else self.length * self.width
 
+    def perimeter(self):
+        return self.length * 4 if self.width is None else (self.length + self.width) * 2
 
-class Eagle(Animal):
-    def __init__(self, name, idx):
-        super().__init__(name, idx)
-        self.feathers = 'beautiful'
+    def __add__(self, other):
+        new_len = self.perimeter() + other.perimeter()
+        side_1 = new_len // 4
+        side_2 = new_len // 2 - side_1
+        return Rectangle(side_2, side_1)
 
-    def specific(self):
-        print(f'{self.feathers = }')
+    def __sub__(self, other):
+        new_len = self.perimeter() - other.perimeter()
+        if new_len > 0:
+            side_1 = new_len // 4
+            side_2 = new_len // 2 - side_1
+            return Rectangle(side_2, side_1)
+        else:
+            print('Wrong operation')
 
+    def __eq__(self, other):
+        return self.perimeter() == other.perimeter()
 
-class Dog(Animal):
-    def __init__(self, name, idx):
-        super().__init__(name, idx)
-        self.legs = 4
+    def __gt__(self, other):
+        return self.perimeter() > other.perimeter()
 
-    def specific(self):
-        print(f'{self.legs = }')
+    def __ge__(self, other):
+        return self.perimeter() >= other.perimeter()
 
 
 if __name__ == '__main__':
-    dog = Dog('Bim', 1)
-    fish = Fish('BulBul', 2)
-    eagle = Eagle('Fly', 3)
-
-    ls = [dog, fish, eagle]
-    for i in ls:
-        i.specific()
+    rect = Rectangle(4, 2)
+    rect1 = Rectangle(3, 2)
+    print(f'{rect.square() = }, {rect.perimeter() = }')
+    print(f'{rect1.square() = }, {rect1.perimeter() = }')
+    rect3 = rect1 + rect
+    print(f'{rect3.square() = }, {rect3.perimeter() = }')
+    print(f'{rect3.length = }, {rect3.width = }')
+    print(rect3 <= rect)
+    print(rect != rect1)
