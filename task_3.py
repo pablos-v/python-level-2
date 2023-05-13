@@ -1,25 +1,13 @@
 """
-Создайте класс с базовым исключением и дочерние классыисключения:
-○ ошибка уровня,
-○ ошибка доступа.
+Напишите для задачи 1 тесты unittest. Проверьте
+следующие варианты:
+возврат строки без изменений
+возврат строки с преобразованием регистра без потери
+символов
+возврат строки с удалением знаков пунктуации
+возврат строки с удалением букв других алфавитов
+возврат строки с учётом всех вышеперечисленных пунктов
+(кроме п. 1)
+
 """
-from task_4 import User
 
-
-class MainException(Exception):
-    pass
-
-
-class LevelException(MainException):
-    def __init__(self, user: User, other_lvl):
-        self.name = user.name
-        self.level = user.level
-        self.other_lvl = other_lvl
-
-    def __str__(self):
-        return f'Dear {self.name}, your level is {self.level}, ' \
-               f'that is too low for creating user with level {self.other_lvl}'
-
-
-class AccessException(MainException):
-    pass

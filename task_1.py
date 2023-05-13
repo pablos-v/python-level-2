@@ -1,21 +1,17 @@
 """
-Создайте функцию, которая запрашивает числовые данные от
-пользователя до тех пор, пока он не введёт целое или
-вещественное число.
-Обрабатывайте не числовые данные как исключения.
+Создайте функцию, которая удаляет из текста все символы
+кроме букв латинского алфавита и пробелов.
+Возвращается строка в нижнем регистре.
+
 """
+from string import ascii_letters
 
 
-def enter_number():
-    while True:
-        res = input('Enter number: ')
-        try:
-            float(res)
-        except ValueError as e:
-            print(f'{e} is not a number, try again.')
-        else:
-            return res
+def task_func(s: str) -> str:
+    res = ''.join(c for c in s if c in ascii_letters or c.isspace())
+    return res.lower()
 
 
 if __name__ == '__main__':
-    print(enter_number())
+    text = 'qweваКПrty qWУУЦК4466ERTy aSd'
+    print(task_func(text))

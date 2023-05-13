@@ -1,22 +1,35 @@
 """
-Создайте функцию аналог get для словаря.
-Помимо самого словаря функция принимает ключ и
-значение по умолчанию.
-При обращении к несуществующему ключу функция должна
-возвращать дефолтное значение.
-Реализуйте работу через обработку исключений.
+Напишите для задачи 1 тесты doctest. Проверьте следующие варианты:
+возврат строки без изменений
+возврат строки с преобразованием регистра без потери символов
+возврат строки с удалением знаков пунктуации
+возврат строки с удалением букв других алфавитов
+возврат строки с учётом всех вышеперечисленных пунктов (кроме п. 1)
+
 """
 
+from string import ascii_letters
 
-def getter_for_dict(dct: dict, key, default_value):
-    try:
-        return dct[key]
-    except KeyError as e:
-        return default_value
+
+def task_func(s: str) -> str:
+    """
+    Deleting from string s all symbols, witch are not space or a symbol of the latin alphabet.
+    Returns clear string.
+    >>> task_func('qwerty qwerty asd')
+    'qwerty qwerty asd'
+    >>> task_func('qwerty qwERTY ASD')
+    'qwerty qwerty asd'
+    >>> task_func('qwerty qw,..erty asd')
+    'qwerty qwerty asd'
+    >>> task_func('qwйййerty qwысмкerty asd')
+    'qwerty qwerty asd'
+    >>> task_func('qweваКПrty qWУУЦК-4466ERTy aSd')
+    'qwerty qwerty asd'
+    """
+    res = ''.join(c for c in s if c in ascii_letters or c.isspace())
+    return res.lower()
 
 
 if __name__ == '__main__':
-    d = {1: 15, 'dd': 51}
-    print(getter_for_dict(d, 1, 0.0))
-    print(getter_for_dict(d, 'dd', 0.0))
-    print(getter_for_dict(d, 'd', 'o.0'))
+    import doctest
+    doctest.testmod(verbose=True)
