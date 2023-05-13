@@ -46,7 +46,7 @@ class Project:
         if int(level) <= int(self.user_logged_in.level):
             self.set_of_users.add(User(name, a_id, level))
         else:
-            raise LevelException('Your level is too low')
+            raise LevelException(self.user_logged_in, level)
 
 
 if __name__ == '__main__':
