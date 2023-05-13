@@ -26,6 +26,15 @@ class User:
     def __str__(self):
         return f'level = {self.level}, name = {self.name}, ID = {self.a_id}'
 
+    def __repr__(self):
+        return f'User(name = {self.name}, a_id = {self.a_id}, lvl = {self.level})'
+
+    def __eq__(self, other):
+        return self.a_id == other.a_id and self.name == other.name
+
+    def __hash__(self):
+        return hash((self.name, self.a_id))
+
 
 def read_and_form(file: Path) -> set[User]:
     set_of_users = set()
@@ -41,3 +50,4 @@ if __name__ == '__main__':
     ss = read_and_form(Path('task_2.json'))
     for i in ss:
         print(i)
+    print(ss)
