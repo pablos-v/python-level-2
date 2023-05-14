@@ -1,34 +1,41 @@
 """
-Напишите для задачи 1 тесты unittest. Проверьте следующие варианты:
-1 возврат строки без изменений
-2 возврат строки с преобразованием регистра без потери символов
-3 возврат строки с удалением знаков пунктуации
-4 возврат строки с удалением букв других алфавитов
-5 возврат строки с учётом всех вышеперечисленных пунктов (кроме п. 1)
+Доработаем задачу 2.
+Сохраняйте в лог файл раздельно:
+○ уровень логирования,
+○ дату события,
+○ имя функции (не декоратора),
+○ аргументы вызова,
+○ результат.
 
 """
 
-import unittest
+from functools import wraps
+from typing import Callable, Tuple, Any, Dict
+from pathlib import Path
+import json
 
-from task_1 import task_func
+
+def deco(func: Callable) -> Callable[[tuple[Any, ...], dict[str, Any]], None]:
+    def wrapper(*args, **kwargs):
+        wraps(func)
+        res = func(*args, **kwargs)
+        name = func.__name__
+        file = Path(f'{name}.json')
+        dict_for_record = {}
+        dict_for_record.update(kwargs)
+        dict_for_record.update(enumerate(args))
+        dict_for_record["result"] = res
+        with open(file, 'a', encoding='utf-8') as f:
+            json.dump(dict_for_record, f, indent=2)
+        return
+
+    return wrapper
 
 
-class TestTaskFunc(unittest.TestCase):
-    def test_1(self):
-        self.assertEqual(task_func('qwerty qwerty asd'), 'qwerty qwerty asd', msg='Failed test!')
-
-    def test_2(self):
-        self.assertEqual(task_func('qwerty qwERTY ASD'), 'qwerty qwerty asd', msg='Failed test!')
-
-    def test_3(self):
-        self.assertEqual(task_func('qwerty qw,..erty asd'), 'qwerty qwerty asd', msg='Failed test!')
-
-    def test_4(self):
-        self.assertEqual(task_func('qwйййerty qwысмкerty asd'), 'qwerty qwerty asd', msg='Failed test!')
-
-    def test_5(self):
-        self.assertEqual(task_func('qweваКПrty qWУУЦК-4466ERTy aSd'), 'qwerty qwerty asd', msg='Failed test!')
+@deco
+def my_func(*args, **kwargs) -> int:
+    return sum(args) + sum(kwargs.values())
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    my_func(4, 5, 6, d=10, g=3)

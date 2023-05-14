@@ -1,35 +1,36 @@
 """
-Напишите для задачи 1 тесты doctest. Проверьте следующие варианты:
-возврат строки без изменений
-возврат строки с преобразованием регистра без потери символов
-возврат строки с удалением знаков пунктуации
-возврат строки с удалением букв других алфавитов
-возврат строки с учётом всех вышеперечисленных пунктов (кроме п. 1)
+На семинаре про декораторы был создан логирующий
+декоратор. Он сохранял аргументы функции и результат её
+работы в файл.
+Напишите аналогичный декоратор, но внутри используйте
+модуль logging.
 
 """
 
-from string import ascii_letters
+from functools import wraps
+from typing import Callable
+import logging
+
+FORMAT = '{asctime} {levelname} {funcName}->{lineno}: {msg}'
+logging.basicConfig(level=0, encoding='utf-8', filename='task_2.log',
+                    format=FORMAT, style='{')
+logger = logging.getLogger(__name__)
 
 
-def task_func(s: str) -> str:
-    """
-    Deleting from string s all symbols, witch are not space or a symbol of the latin alphabet.
-    Returns clear string.
-    >>> task_func('qwerty qwerty asd')
-    'qwerty qwerty asd'
-    >>> task_func('qwerty qwERTY ASD')
-    'qwerty qwerty asd'
-    >>> task_func('qwerty qw,..erty asd')
-    'qwerty qwerty asd'
-    >>> task_func('qwйййerty qwысмкerty asd')
-    'qwerty qwerty asd'
-    >>> task_func('qweваКПrty qWУУЦК-4466ERTy aSd')
-    'qwerty qwerty asd'
-    """
-    res = ''.join(c for c in s if c in ascii_letters or c.isspace())
-    return res.lower()
+def deco(func: Callable):
+    def wrapper(*args, **kwargs):
+        wraps(func)
+        res = func(*args, **kwargs)
+        logger.info(f'Arguments: {*args, *kwargs.values()}, Result: {res}')
+        return
+
+    return wrapper
+
+
+@deco
+def my_func(*args, **kwargs) -> int:
+    return sum(args) + sum(kwargs.values())
 
 
 if __name__ == '__main__':
-    import doctest
-    doctest.testmod(verbose=True)
+    print(my_func(4, 5, 6, d=100, g=3))
