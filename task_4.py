@@ -7,7 +7,7 @@ from datetime import datetime
 import logging
 
 FORMAT = '{asctime} {levelname} {funcName}->{lineno}: {msg}'
-logging.basicConfig(level=2, encoding='utf-8', filename='task_4.log',
+logging.basicConfig(level=0, encoding='utf-8', filename='task_4.log',
                     format=FORMAT, style='{')
 logger = logging.getLogger(__name__)
 
@@ -25,6 +25,7 @@ def convert_str_to_date(s: str) -> datetime:
         month = MONTH.index(month)
         day = DAY.index(day)
         num = int(num[0])
+        logger.info(f'{year=}, {month=}, {day=}, {num=}')
     except ValueError as e:
         logger.error(f'{year=}, {month=}, {day=}, {num=}')
     count = 0
