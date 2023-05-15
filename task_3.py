@@ -10,23 +10,20 @@
 """
 
 from functools import wraps
-from typing import Callable, Tuple, Any, Dict
-from pathlib import Path
-import json
+from typing import Callable
+import logging
+
+FORMAT = '{levelname} - {asctime} - {msg}'
+logging.basicConfig(level=0, encoding='utf-8', filename='task_2.log',
+                    format=FORMAT, style='{')
+logger = logging.getLogger(__name__)
 
 
-def deco(func: Callable) -> Callable[[tuple[Any, ...], dict[str, Any]], None]:
+def deco(func: Callable):
     def wrapper(*args, **kwargs):
         wraps(func)
         res = func(*args, **kwargs)
-        name = func.__name__
-        file = Path(f'{name}.json')
-        dict_for_record = {}
-        dict_for_record.update(kwargs)
-        dict_for_record.update(enumerate(args))
-        dict_for_record["result"] = res
-        with open(file, 'a', encoding='utf-8') as f:
-            json.dump(dict_for_record, f, indent=2)
+        logger.info(f'funcname: {func.__name__} - arguments: {*args, *kwargs.values()} - result: {res}')
         return
 
     return wrapper
@@ -38,4 +35,5 @@ def my_func(*args, **kwargs) -> int:
 
 
 if __name__ == '__main__':
-    my_func(4, 5, 6, d=10, g=3)
+    print(my_func(4, 5, 6, d=100, g=3))
+
